@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>List Employee</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+<h2>List Employee</h2>
+<a href="/">Back to home</a>
+
+<div id="tableContainer"></div>
+
+<script>
+    function listgrid() {
+        // Make POST request using jQuery
+        $.get('/employees', function(employees) {
+            // Create table element
+            const table = document.createElement('table');
+            table.border = 1;
+
+            // Create table header row
+            const headerRow = table.insertRow();
+            for (const key in employees[0]) {
+                const th = document.createElement('th');
+                th.textContent = key.toUpperCase();
+                headerRow.appendChild(th);
+            }
+            const th = document.createElement('th');
+            th.textContent = 'ACTION';
+            headerRow.appendChild(th);
+
+            // Create table body rows
+            employees.forEach(employee => {
+                const row = table.insertRow();
+                for (const key in employee) {
+                    const cell = row.insertCell();
+                    cell.textContent = employee[key];
+                }
+                const cell = row.insertCell();
+                cell.innerHTML = `<a href="javascript:void(0)" onclick="deleteitem(${employee.id})">Delete</a>`;
+            });
+
+            // Append table to the table container
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.appendChild(table);
+        });
+    }
+    
+    function deleteitem(id) {
+        if (confirm(`Delete item ${id}?`)) {
+            $.ajax({
+            url: `/employees/${id}`, // Replace with the actual URL of your API endpoint
+            type: 'DELETE',
+            success: function(result) {
+                console.log('Employee deleted successfully');
+                alert('Deleted!');
+                location.reload();
+                // Optionally, update UI or show a success message
+            },
+            error: function(xhr, status, error) {
+                console.error('Error deleting employee:', error);
+                alert('Error occured');
+                // Optionally, display an error message to the user
+            }
+        });
+        }
+    }
+
+    $(document).ready(function() {
+        listgrid();
+    });
+</script>
+</body>
+</html>

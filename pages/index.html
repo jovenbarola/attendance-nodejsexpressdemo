@@ -1,13 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Hello Express!</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <h1>Hello Express!</h1>
-    <p>Showing <code>pages/index.html</code></p>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance Recording</title>
+<style>
+    /* body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    } */
+    h1 {
+        text-align: center;
+    }
+    #attendance-form {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    #previous-records {
+        margin-top: 20px;
+    }
+    #previous-records table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    #previous-records th, #previous-records td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    #previous-records th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+    <h1>Attendance Recording</h1>
+    <div id="previous-records">
+      <table border="1">
+        <tr>
+          <td><a href="/add_employee">Create Employee</a></td>
+          <td><a href="/list_employee">List Employee</a></td>
+          <td><a href="/about">About</a></td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <div id="attendance-form">
+        <label for="employee-id">Enter Employee ID:</label>
+        <input type="text" id="employee-id" name="employee-id">
+        <button onclick="recordAttendance()">Record Attendance</button>
+    </div>
+    <div id="previous-records">
+        <h2>Previous Records</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="records-body">
+                <!-- Records will be displayed here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function recordAttendance() {
+            var employeeId = document.getElementById("employee-id").value;
+            // Here, you can implement the logic to record attendance using JavaScript or send the data to a server-side script for processing.
+            // For demonstration purposes, I'm just logging the employee ID.
+            console.log("Employee ID:", employeeId);
+
+            // For demonstration, adding some dummy previous records
+            var previousRecords = [
+                { date: "2024-03-17", status: "Present" },
+                { date: "2024-03-16", status: "Absent" },
+                { date: "2024-03-15", status: "Present" }
+            ];
+
+            // Clear previous records
+            var recordsBody = document.getElementById("records-body");
+            recordsBody.innerHTML = "";
+
+            // Display previous records
+            previousRecords.forEach(function(record) {
+                var row = "<tr><td>" + record.date + "</td><td>" + record.status + "</td></tr>";
+                recordsBody.innerHTML += row;
+            });
+        }
+    </script>
+</body>
 </html>
