@@ -1,8 +1,8 @@
 {
-  "name": "express-simple-starter",
+  "name": "attendancetracker-nodejsexpressdemo",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "^4.18.2"
