@@ -73,6 +73,34 @@ app.get('/initializedb', (req, res) => {
   });
 });
 
+app.get('/testdb', (res, req) => {
+  const sql1 = 'SELECT * FROM employees';
+  db.all(sql1, [], (err, rows) => {
+    if (err) {
+      console.error('Error fetching employees:', err.message);
+      res.status(500).json({ error: 'Error fetching employees' });
+      return;
+    }
+    //res.json(rows);
+    if (rows.length > 0) {
+      res.json({ "message": "employee table exists" })
+    }
+  });
+
+  const sql2 = 'SELECT * FROM attendance';
+  db.all(sql2, [], (err, rows) => {
+    if (err) {
+      console.error('Error fetching employees:', err.message);
+      res.status(500).json({ error: 'Error fetching employees' });
+      return;
+    }
+    //res.json(rows);
+    if (rows.length > 0) {
+      res.json({ "message": "attendance table exists" })
+    }
+  });
+});
+
 // Create employee
 app.post('/employees', (req, res) => {
   const { name, age, position } = req.body;

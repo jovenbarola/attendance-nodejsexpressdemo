@@ -1,7 +1,13 @@
-# Simple express demo
+# Simple attendance tracker with manage employee using NodeJS + Express 
 
-> Express: fast, unopinionated, minimalist web framework for Node.js
+*(THIS IS FOR DEMO purpose only)*
 
-This project shows a simple express server serving a single HTML page and using `express.static` to serve static files.
+> Tools:
+- StackBlitz.com Online Code Editor
+- Github
+- npm
 
-Check out the [express documentation](https://expressjs.com/) for more information.
+> This uses:
+- NodeJS
+- Express
+- SQLite3
